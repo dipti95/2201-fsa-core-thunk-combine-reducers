@@ -6,10 +6,9 @@ const ListCardContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 5px;
+    margin: 4px;
     padding: 10px;
-    height: min-content;
-    min-height: 100px;
+    height: 100px;
     width: 150px;
     border: 1px solid black;
     border-radius: 3px;

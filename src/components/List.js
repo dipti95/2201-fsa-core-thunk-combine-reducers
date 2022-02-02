@@ -4,14 +4,11 @@ import styled from 'styled-components';
 
 const ListContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: min-content;
-  width: auto;
-  padding: 20px;
+  flex-wrap: wrap;
+  padding: 4px;
   border: 1px solid black;
   border-radius: 5px;
+  width: 326px;
 `;
 
 export default function List({ list }) {
