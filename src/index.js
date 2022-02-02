@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import List from './components/List';
 import { Provider, connect } from 'react-redux';
-import store, { getList } from './redux/store';
+import store, { fetchGetList } from './redux/store';
 
 import { list } from '../data';
 
@@ -40,7 +40,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getList: () => {
-      dispatch(getList(list));
+      dispatch(fetchGetList());
     },
   };
 };
