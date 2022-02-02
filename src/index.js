@@ -2,7 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import List from './components/List';
-import axios from 'axios';
+import { Provider, connect } from 'react-redux';
+import store, { getList } from './redux/store';
+
+import * as FAKE_DATABASE from '../db.json';
+const {
+  api: { list },
+} = FAKE_DATABASE;
 
 const AppContainer = styled.main`
   display: flex;
@@ -13,30 +19,40 @@ const AppContainer = styled.main`
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      list: [],
-    };
   }
 
-  async componentDidMount() {
-    try {
-      const {
-        data: { list },
-      } = await axios.get('http://localhost:5500/api');
-
-      this.setState({ list });
-    } catch (err) {
-      console.error(err);
-    }
+  componentDidMount() {
+    this.props.getList();
   }
 
   render() {
     return (
       <AppContainer>
-        <List list={this.state.list} />
+        <List list={list} />
       </AppContainer>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const mapState = (state) => {
+  return {
+    list: state.list,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    getList: () => {
+      dispatch(getList(list));
+    },
+  };
+};
+
+const ConnectedApp = connect(mapState, mapDispatch)(App);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedApp />
+  </Provider>,
+  document.getElementById('root')
+);
