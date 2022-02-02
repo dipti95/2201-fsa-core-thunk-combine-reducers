@@ -5,10 +5,7 @@ import List from './components/List';
 import { Provider, connect } from 'react-redux';
 import store, { getList } from './redux/store';
 
-import * as FAKE_DATABASE from '../db.json';
-const {
-  api: { list },
-} = FAKE_DATABASE;
+import { list } from '../data';
 
 const AppContainer = styled.main`
   display: flex;
