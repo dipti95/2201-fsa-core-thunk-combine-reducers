@@ -31,7 +31,7 @@ export default class ListCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isChecked: false,
+      isChecked: props.card.done,
     };
   }
 
@@ -46,6 +46,7 @@ export default class ListCard extends React.Component {
           <span>{this.state.isChecked ? 'Done' : 'Not Done'}</span>
           <input
             type="checkbox"
+            defaultChecked={this.state.isChecked}
             onClick={(e) => this.setState({ isChecked: e.target.checked })}
           />
         </div>

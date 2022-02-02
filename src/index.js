@@ -1,18 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import List from './components/List';
-
-const list = [
-  { id: 1, name: 'chore', content: 'take out trash' },
-  { id: 2, name: 'chore', content: 'wash dishes' },
-  { id: 3, name: 'chore', content: 'make bed' },
-  { id: 4, name: 'study', content: 'redux thunk' },
-  { id: 5, name: 'study', content: 'combineReducer fn' },
-  { id: 6, name: 'chore', content: 'walk dog' },
-  { id: 7, name: 'fun', content: 'margaritas' },
-  { id: 8, name: 'fun', content: 'lan party' },
-];
+import axios from 'axios';
 
 const AppContainer = styled.main`
   display: flex;
@@ -21,6 +11,22 @@ const AppContainer = styled.main`
 `;
 
 function App() {
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const {
+          data: { list },
+        } = await axios.get('http://localhost:5500/api');
+        setList(list);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getList();
+  }, []);
+
   return (
     <AppContainer>
       <List list={list} />
