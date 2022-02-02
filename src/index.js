@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './components';
-import { Provider } from 'react-redux';
-import store from './store';
+import styled from 'styled-components';
+import List from './components/List';
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
+const list = [{ id: 1, name: 'chore', content: 'take out trash' }];
+
+const AppContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+`;
+
+function App() {
+  return (
+    <AppContainer>
+      <List list={list} />
+    </AppContainer>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
