@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import List from './components/List';
@@ -10,28 +10,33 @@ const AppContainer = styled.main`
   justify-content: center;
 `;
 
-function App() {
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    const getList = async () => {
-      try {
-        const {
-          data: { list },
-        } = await axios.get('http://localhost:5500/api');
-        setList(list);
-      } catch (err) {
-        console.error(err);
-      }
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: [],
     };
-    getList();
-  }, []);
+  }
 
-  return (
-    <AppContainer>
-      <List list={list} />
-    </AppContainer>
-  );
+  async componentDidMount() {
+    try {
+      const {
+        data: { list },
+      } = await axios.get('http://localhost:5500/api');
+
+      this.setState({ list });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  render() {
+    return (
+      <AppContainer>
+        <List list={this.state.list} />
+      </AppContainer>
+    );
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
